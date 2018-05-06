@@ -7,10 +7,10 @@
 #
 
 AR	=ar
-AS	=as
+AS	=as --32
 LD	=ld
 LDFLAGS	=-s -x
-CC	=gcc -mcpu=i386
+CC	=gcc -mcpu=i386 -m32
 CFLAGS	=-Wall -O -fstrength-reduce -fomit-frame-pointer \
 	-finline-functions -nostdinc -I../include
 CPP	=gcc -E -nostdinc -I../include
@@ -29,7 +29,7 @@ OBJS  = sched.o system_call.o traps.o asm.o fork.o \
 	signal.o mktime.o
 
 kernel.o: $(OBJS)
-	$(LD) -r -o kernel.o $(OBJS)
+	$(LD) -m elf_i386 -r -o kernel.o $(OBJS)
 	sync
 
 clean:
